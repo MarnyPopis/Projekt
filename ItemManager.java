@@ -8,7 +8,7 @@ private List<Product> listProducts = new ArrayList<Product>();
 		return new Product (name, price, amount);
 	}
 	
-	public void add (Product Product) {
+	public void addProduct (Product Product) {
 		listProducts.add(Product);
 	}
 	
@@ -20,7 +20,7 @@ private List<Product> listProducts = new ArrayList<Product>();
 		listProducts.remove(ProductIndex);
 	}
 	
-	public List<Product> getItems () {
+	public List<Product> getProduct () {
 		return listProducts;
 	}
 }

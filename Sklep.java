@@ -1,12 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 public class Sklep {
 
 		private User loggedInUser = null;
@@ -14,12 +8,12 @@ public class Sklep {
 		private ItemManager itemMgr = new ItemManager();
 		
 		public void addUser(String UserName, String login, String password) {
-			users.put(login, new User (UserName, login, password, 1));
+			users.put(login, new User (UserName, login, password));
 		}
 		
 		public void work () {
-			User admin = new User ("admin", "admin", "admin", 0);
-			User user1 = new User ("user1", "user1", "user1", 1);
+			User admin = new User ("admin", "admin", "admin", "1");
+			User user1 = new User ("user1", "user1", "user1", "0");
 			
 			users.put(admin.getLogin(), admin);
 			users.put(user1.getLogin(), user1);
@@ -36,8 +30,7 @@ public class Sklep {
 				
 				if (users.containsKey(login) && users.get(login).getPassword().equals(pass)) {
 					loggedInUser = users.get(login);
-					if (loggedInUser.getRole() == 0) {
-						//admin
+					if (( loggedInUser).getRole() .equals("1")) {
 						Boolean doLogout = false;
 						do {
 							System.out.println("[1]. Dodaj u¿ytkownika");
@@ -61,7 +54,7 @@ public class Sklep {
 								} 
 								case "2" : {
 									for (User u : users.values())
-										System.out.println("User: " + u.getName() + ", login: " + u.getLogin());
+										System.out.println("User: " + u.getUserName() + ", login: " + u.getLogin());
 									break;
 								}
 								case "3" : {
@@ -72,7 +65,7 @@ public class Sklep {
 									System.out.println("Iloœæ dla nowego produktu: ");
 									int newProductAmount = scan.nextInt();
 									if (scan.hasNextLine()) scan.nextLine();
-									Product newProduct = itemMgr.createProduct(newProductName, newProductPrice, newProductAmount);
+									Product newProduct = itemMgr.createProducts(newProductName, newProductPrice, newProductAmount);
 									itemMgr.addProduct(newProduct);
 								}
 								case "4" : {
@@ -84,12 +77,12 @@ public class Sklep {
 								}
 								case "5" : {
 									System.out.println("Wybierz produkt: ");
-									int ProductIndex = scan.nextInt();
+									int productIndex = scan.nextInt();
 									if (scan.hasNextLine()) scan.nextLine();
 									System.out.println("Nowa iloœæ dla produktu: ");
-									int itemAmount = scan.nextInt();
+									int productAmount = scan.nextInt();
 									if (scan.hasNextLine()) scan.nextLine();
-									itemMgr.getProduct().get(ProductIndex).setAmount(ProductAmount);
+									itemMgr.getProduct().get(productIndex).setAmount(productAmount);
 									break;
 								}
 								case "10" : {
@@ -112,13 +105,14 @@ public class Sklep {
 				}
 			} while (doStop == false);
 			
-			System.out.println("Bye.");
+			System.out.println("Dowidzenia. Zapraszamy ponownie.");
 			scan.close();
 		}
 
 
 	public static void main(String[] args) {
-		
+		Sklep s = new Sklep();
+		s.work();
 	}
 
 }

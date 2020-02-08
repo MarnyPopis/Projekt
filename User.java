@@ -1,12 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 public class User {
 	private String userName;
 	public String getUserName() {
@@ -29,9 +20,25 @@ public class User {
 	}
 	private String login;
 	private String password;
+	private String role;
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	public User(String UserName, String login, String password) {
 		this.userName = UserName;
 		this.login = login;
 		this.password = password;
+	}
+	public User(String UserName, String login, String password, String role) {
+		this.userName = UserName;
+		this.login = login;
+		this.password = password;
+		this.role = role;
+	}
+	public User(String UserName) {
+		this.userName = UserName;
 	}
 }

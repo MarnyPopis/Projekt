@@ -18,7 +18,7 @@ public class DoUsers {
 	        	Statement statement = connection.createStatement();
 	        	statement.setQueryTimeout(30); 
 
-	        	statement.executeUpdate("INSERT INTO Person values('"+prsn.getUser()+"')");
+	        	statement.executeUpdate("INSERT INTO Person values('"+prsn.getUserName()+"')");
 	        
 		}
 	    	catch(SQLException e){
@@ -49,7 +49,7 @@ public class DoUsers {
 	        	Statement statement = connection.createStatement();
 	        	statement.setQueryTimeout(30); 
 
-	        	statement.executeUpdate("DELETE FROM Person WHERE name='"+ prsn.getName() + "'");
+	        	statement.executeUpdate("DELETE FROM Person WHERE name='"+ prsn.getUserName() + "'");
 	        
 		}
 	    	catch(SQLException e){
