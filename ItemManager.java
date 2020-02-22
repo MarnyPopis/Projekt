@@ -3,12 +3,14 @@ import java.util.List;
 
 public class ItemManager {
 private List<Product> listProducts = new ArrayList<Product>();
+private DoUsers dbProducts = new DoUsers();
 	
 	public Product createProducts (String name, String price, int amount) {
 		return new Product (name, price, amount);
 	}
 	
-	public void addProduct (Product Product) {
+	public void addProduct (Product Product) throws Exception {
+		dbProducts.addProduct(Product);
 		listProducts.add(Product);
 	}
 	

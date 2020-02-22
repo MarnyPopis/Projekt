@@ -66,7 +66,12 @@ public class Sklep {
 									int newProductAmount = scan.nextInt();
 									if (scan.hasNextLine()) scan.nextLine();
 									Product newProduct = itemMgr.createProducts(newProductName, newProductPrice, newProductAmount);
-									itemMgr.addProduct(newProduct);
+									try {
+										itemMgr.addProduct(newProduct);
+									} catch (Exception e) {
+										System.out.println("Productu nie uda³o sie dodac");
+										e.printStackTrace();
+									}
 								}
 								case "4" : {
 									int i = 0;

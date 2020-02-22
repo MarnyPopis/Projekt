@@ -13,7 +13,7 @@ public class DoUsers {
 		Connection connection = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-	        	connection = DriverManager.getConnection("jdbc:sqlite:D:Sklep.db");
+	        	connection = DriverManager.getConnection("jdbc:sqlite:D:/Sklep.db");
 
 	        	Statement statement = connection.createStatement();
 	        	statement.setQueryTimeout(30); 
@@ -44,7 +44,7 @@ public class DoUsers {
 		Connection connection = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-	        	connection = DriverManager.getConnection("jdbc:sqlite:D:Sklep.db");
+	        	connection = DriverManager.getConnection("jdbc:sqlite:D:/Sklep.db");
 
 	        	Statement statement = connection.createStatement();
 	        	statement.setQueryTimeout(30); 
@@ -70,14 +70,13 @@ public class DoUsers {
 			}
 	    }
 	}
-	
 	public List<User> getPersons () throws Exception {
 		List<User> listOfPersons = new ArrayList<User>();
 
 		Connection connection = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-	         	connection = DriverManager.getConnection("jdbc:sqlite:D:Sklep.db");
+	         	connection = DriverManager.getConnection("jdbc:sqlite:D:/Sklep.db");
 
 	         	Statement statement = connection.createStatement();
 	         	statement.setQueryTimeout(30); 
@@ -103,5 +102,113 @@ public class DoUsers {
 	    	}
 		
 		return listOfPersons;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void addProduct(Product prdc) throws Exception {
+		Connection connection = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+	        	connection = DriverManager.getConnection("jdbc:sqlite:D:/Sklep.db");
+
+	        	Statement statement = connection.createStatement();
+	        	statement.setQueryTimeout(30); 
+
+	        	statement.executeUpdate("INSERT INTO Product(name, price, amount) values('"+prdc.getName()+"','"+prdc.getPrice()+"','"+prdc.getAmount()+"')");
+	        
+		}
+	    	catch(SQLException e){
+	    	 	System.err.println(e.getMessage());
+	    	 	throw e;
+	    	}
+		catch (ClassNotFoundException e) {
+			System.err.println(e.getMessage()); 
+			throw e;
+		}
+	    	finally {         
+			try {
+				if(connection != null)
+					connection.close();
+			}
+			catch(SQLException e) {          
+				System.err.println(e); 
+			}
+	    }
+	}
+	
+	public void removeProduct (Product prdc) throws Exception {
+		Connection connection = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+	        	connection = DriverManager.getConnection("jdbc:sqlite:D:/Sklep.db");
+
+	        	Statement statement = connection.createStatement();
+	        	statement.setQueryTimeout(30); 
+
+	        	statement.executeUpdate("DELETE FROM Product name='"+ prdc.getName() + "'");
+	        
+		}
+	    	catch(SQLException e){
+	    	 	System.err.println(e.getMessage());
+	    	 	throw e;
+	    	}
+		catch (ClassNotFoundException e) {
+			System.err.println(e.getMessage()); 
+			throw e;
+		}
+	    	finally {         
+			try {
+				if(connection != null)
+					connection.close();
+			}
+			catch(SQLException e) {          
+				System.err.println(e); 
+			}
+	    }
+	}
+	
+	public List<Product> getProducts () throws Exception {
+		List<Product> listOfProducts = new ArrayList<Product>();
+
+		Connection connection = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+	         	connection = DriverManager.getConnection("jdbc:sqlite:D:/Sklep.db");
+
+	         	Statement statement = connection.createStatement();
+	         	statement.setQueryTimeout(30); 
+
+	         	ResultSet resultSet = statement.executeQuery("SELECT name from product");
+	         	while(resultSet.next())
+	         	{
+	         		Product newProduct = new Product(resultSet.getString("name"), resultSet.getString("Price"), resultSet.getInt("amount"));
+	        	 	listOfProducts.add (newProduct);
+	         	}
+		}
+	    	catch(SQLException e){
+	    	 	System.err.println(e.getMessage()); 
+	    	}       
+	    	finally {         
+			try {
+				if(connection != null)
+					connection.close();
+			}
+			catch(SQLException e) {        
+				System.err.println(e); 
+			}
+	    	}
+		
+		return listOfProducts;
 	}
 }
